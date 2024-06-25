@@ -1,6 +1,19 @@
-FROM ubuntu:latest
-RUN apt-get update && apt-get upgrade
-RUN apt-get install nginx -y
-COPY . /var/www/html
+FROM centos:7
+
+# Update the system
+RUN yum -y update
+
+# Install Apache HTTP Server
+RUN yum install -y httpd
+
+# Copy HTML, CSS, JS Files to the Apache directory
+COPY index.html /var/www/html/index.html
+COPY styles.css /var/www/html/styles.css
+COPY script.js /var/www/html/script.js
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose port 80
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off:"]
+
+# Start the Apache HTTP Server in the foreground
+CMD ["httpd", "-D", "FOREGROUND"]
