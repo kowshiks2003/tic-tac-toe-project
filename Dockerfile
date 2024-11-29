@@ -1,4 +1,4 @@
-FROM centos:7
+FROM almalinux:8
 
 # Update the system
 RUN yum -y update
